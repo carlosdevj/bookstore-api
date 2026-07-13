@@ -1,111 +1,106 @@
-# API Livraria (Bookstore API)
+# Bookstore API
 
-![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+A REST API for managing books and authors, developed as an educational project during my studies with Alura. The project was later reorganized to practice a clearer separation between controllers, services, models, and application-level error handling.
 
-API RESTful desenvolvida para gerenciar uma coleção de livros e seus respectivos autores. Este projeto foi criado como parte de um estudo prático sobre a arquitetura MVC com camada de Serviços e as operações de um CRUD (Create, Read, Update, Delete) em Node.js.
+## About the project
 
-## ✨ Funcionalidades
+The API provides CRUD operations for books and authors, along with filtering and pagination. Its main purpose is to demonstrate foundational backend concepts with Node.js, Express, MongoDB, and Mongoose.
 
-- ✅ **CRUD Completo:** Operações de criação, leitura, atualização e exclusão para Livros e Autores.
-- ✅ **Busca Dinâmica:** Sistema de filtros para pesquisar livros por título, editora ou autor.
-- ✅ **Paginação:** As listagens de resultados são paginadas para otimizar o desempenho.
-- ✅ **Validações:** Validação dos dados de entrada para garantir a integridade das informações no banco de dados.
-- ✅ **Tratamento de Erros:** Middlewares para tratamento de erros centralizado, incluindo erros 404 e erros de sistema.
+This repository is a learning project rather than a production service.
 
-## 🛠️ Tecnologias Utilizadas
+## Features
 
-- **Node.js:** Ambiente de execução do JavaScript no servidor.
-- **Express.js:** Framework para a construção da API.
-- **MongoDB:** Banco de dados NoSQL utilizado para armazenar os dados.
-- **Mongoose:** ODM para modelagem dos objetos do MongoDB.
-- **Nodemon:** Monitora alterações nos arquivos e reinicia o servidor automaticamente durante o desenvolvimento.
+- Create, list, update, and delete books
+- Create, list, update, and delete authors
+- Search books by title, publisher, or author
+- Paginated book listings
+- Request data validation
+- Centralized error handling
+- MVC-style organization with a service layer
 
-## 🚀 Como Executar o Projeto
+## Tech stack
 
-Siga os passos abaixo para executar a API em seu ambiente local.
+- Node.js
+- Express 5
+- MongoDB
+- Mongoose
+- dotenv
+- Nodemon
 
-### Pré-requisitos
+## Getting started
 
-Antes de começar, você vai precisar ter instalado em sua máquina:
+### Prerequisites
 
-- [Node.js](https://nodejs.org/en/)
-- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
-- Uma instância do **MongoDB** ativa (localmente ou em um serviço como o MongoDB Atlas).
+- Node.js
+- npm
+- A local MongoDB instance or MongoDB Atlas connection
 
-### Instalação
+### Installation
 
-1. Clone o repositório:
+```bash
+git clone https://github.com/carlosdevj/bookstore-api.git
+cd bookstore-api
+npm install
+```
 
-   ```bash
-   git clone [https://github.com/CarlosVGP/bookstore-api.git](https://github.com/SEU_USUARIO/bookstore-api.git)
-   ```
+### Environment variables
 
-2. Acesse a pasta do projeto:
+Create a `.env` file in the project root:
 
-   ```bash
-   cd bookstore-api
-   ```
+```env
+PORT=3000
+DB_CONNECTION_STRING=your_mongodb_connection_string
+```
 
-3. Instale as dependências:
-   ```bash
-   npm install
-   ```
+### Running the application
 
-### Configuração
+Start the development server:
 
-1. Crie um arquivo `.env` na raiz do projeto.
-2. Adicione as seguintes variáveis de ambiente, substituindo pelos seus valores:
-   ```env
-   PORT=3000
-   DB_CONNECTION_STRING=sua_string_de_conexao_com_o_mongodb
-   ```
+```bash
+npm run dev
+```
 
-### Execução
+Start the application without watch mode:
 
-- Para iniciar o servidor em **modo de desenvolvimento** (com reinicialização automática):
+```bash
+npm start
+```
 
-  ```bash
-  npm run dev
-  ```
+The API is available at `http://localhost:3000` by default.
 
-- Para iniciar o servidor em **modo de produção**:
-  ```bash
-  npm start
-  ```
+## API endpoints
 
-A API estará disponível em `http://localhost:3000`.
+### Books
 
-## Endpoints da API
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `GET` | `/livros` | List books with pagination |
+| `GET` | `/livros/busca` | Search books using query filters |
+| `GET` | `/livros/:id` | Retrieve a book by ID |
+| `POST` | `/livros` | Create a book |
+| `PUT` | `/livros/:id` | Update a book |
+| `DELETE` | `/livros/:id` | Delete a book |
 
-### Livros
+Example search:
 
-| Método   | Endpoint        | Descrição                                        |
-| :------- | :-------------- | :----------------------------------------------- |
-| `GET`    | `/livros`       | Lista todos os livros (com paginação).           |
-| `GET`    | `/livros/busca` | Busca livros por filtros (ex: `?titulo=Senhor`). |
-| `GET`    | `/livros/:id`   | Obtém um livro específico pelo seu ID.           |
-| `POST`   | `/livros`       | Cadastra um novo livro.                          |
-| `PUT`    | `/livros/:id`   | Atualiza os dados de um livro existente.         |
-| `DELETE` | `/livros/:id`   | Exclui um livro.                                 |
+```http
+GET /livros/busca?titulo=Clean%20Code
+```
 
-### Autores
+### Authors
 
-| Método   | Endpoint       | Descrição                                |
-| :------- | :------------- | :--------------------------------------- |
-| `GET`    | `/autores`     | Lista todos os autores.                  |
-| `GET`    | `/autores/:id` | Obtém um autor específico pelo seu ID.   |
-| `POST`   | `/autores`     | Cadastra um novo autor.                  |
-| `PUT`    | `/autores/:id` | Atualiza os dados de um autor existente. |
-| `DELETE` | `/autores/:id` | Exclui um autor.                         |
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `GET` | `/autores` | List authors |
+| `GET` | `/autores/:id` | Retrieve an author by ID |
+| `POST` | `/autores` | Create an author |
+| `PUT` | `/autores/:id` | Update an author |
+| `DELETE` | `/autores/:id` | Delete an author |
 
-## 📄 Licença
+## Project status
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+This is a completed educational project and is not currently maintained as a production API. Automated tests have not yet been implemented.
 
----
+## Credits
 
-## Desenvolvido por [Carlos Gabriel](https://github.com/CarlosVGP)
-
-## Agradecimentos
-
-Este projeto foi inicialmente desenvolvido durante os cursos da plataforma [Alura](https://www.alura.com.br), e foi posteriormente refatorado com uma arquitetura aprimorada como parte do meu desenvolvimento profissional.
+Developed by [Carlos Gabriel Leal](https://github.com/carlosdevj) as part of his backend studies through Alura.
